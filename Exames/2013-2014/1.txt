@@ -1,0 +1,25 @@
+unsigned int countValues(int a[], unsigned int nelem, int value) {
+	unsigned int i, count = 0;
+	for (i = 0; i < nelem; i++)
+		if (a[i] == value)
+			count++;
+	return count;
+}
+
+/* b) Utilizaria uma template function. Para isso, seria necessário colocar template<class T> antes da função e substituir int por T */
+
+/* c) Como já existe a definição de um construtor com parâmetros e não existe a definição de um construtor sem parâmetros, não é possível inicializar um objeto sem parâmetros. */
+
+/* d) O overloading do teste de igualdade é necessário para verificar se os objetos são iguais.
+bool Person::operator==(Person &right);
+Seria necessário implementar a definição na classe. */
+
+/* e)
+class Player : public Person {
+public:
+	Player(string name, unsigned int age, string team) : Person(name, age), team(team) {}
+private:
+	string team;
+};
+	
+/* f) map<string, vector<Player> > */

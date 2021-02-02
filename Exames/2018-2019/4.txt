@@ -1,0 +1,40 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <sstream>
+/* INCLUIR DEFINIÇÃO E IMPLEMENTAÇÃO DA CLASSE Time NESTE LOCAL */
+
+int main() {
+	ifstream fin("C:\\Documents\\temp.txt");
+	if (!fin.is_open()) {
+		cerr << "Não foi possível abrir o ficheiro!" << endl;
+		exit(1);
+	}
+	Time total(0,0,0);
+	// Abrir primeiro tempo
+	string aux;
+	float temp1, temp2;
+	char lixo;
+	fin >> aux >> lixo >> temp1;
+	cout << aux << " = " << temp1 << endl;
+	Time prev(aux + ":00");
+	while (fin >> aux >> lixo >> temp2) {
+		cout << aux << " = " << temp2 << " - ";
+		Time next(aux + ":00");
+		Time diff((next - prev).getStr());
+		if (temp2 - temp1 > 0) {
+			cout << "subiu durante\t" << diff.getStr().substr(0,5) << endl;
+			total = total + diff;
+		}
+		else if (temp2 - temp1 == 0) {
+			cout << "estável durante\t" << diff.getStr().substr(0,5) << endl;
+		}
+		else if (temp2 - temp1 < 0) {
+			cout << "desceu durante\t" << diff.getStr().substr(0,5) << endl;
+		}
+		prev = next;
+		temp1 = temp2;
+	}
+	cout << "A TEMPERATURA SUBIU DURANTE " << total.getStr().substr(0,5);
+	return 0;
+}

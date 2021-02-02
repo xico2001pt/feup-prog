@@ -1,0 +1,27 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+
+double integrateTR(double f(double), double a, double b, int n) {
+	double h = (b-a)/n, result = 0;
+	for (int i=1; i<=n; i++) {
+		result += h/2*(f(a+(i-1)*h)+f(a+i*h)); //Area do Trapezio
+	}
+	return result;
+}
+
+double g(double x) {
+	return x*x;
+}
+
+double h(double x) {
+	return sqrt(4-x*x);
+}
+
+int main() {
+	int n = 10000;
+	cout << "Being g(x)=x^2 and h(x)=sqrt(4-x^2)" << endl;
+	cout << "Integral of g(x) from x=0 to x=10 is: " << integrateTR(g, 0, 10, n) << endl;
+	cout << "Integral of h(x) from x=-2 to x=2 is: " << integrateTR(h, -2, 2, n) << endl;
+	return 0;
+}

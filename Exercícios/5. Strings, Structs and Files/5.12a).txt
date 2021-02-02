@@ -1,0 +1,51 @@
+#include<iostream>
+#include<string>
+#include<fstream>
+
+using namespace std;
+
+string convertToRLE(string binary) {
+    char character, currentChar = binary.at(0);
+    unsigned counter = 1;
+    string compressed = "";
+    for (unsigned i = 1; i < binary.length(); i++) {
+        character = binary.at(i);
+        if (character == currentChar)
+            counter++;
+        else {
+            compressed += to_string(counter) + currentChar;
+            currentChar = character;
+            counter = 1;
+        }
+    }
+    compressed += to_string(counter) + currentChar;
+    return compressed;
+}
+
+void compressImg(ifstream &f_in, ofstream &f_out) {
+    string lines, columns, binary, compressed;
+    f_in >> lines >> columns >> binary;
+    compressed = convertToRLE(binary);
+    f_out << lines << " " << columns << " " << compressed;
+}
+
+int main(int argc, char *argv[]) {
+    string imgb, imgc;
+    // Check valid format
+    if(argc != 3) {
+        cerr << "USAGE: compress <uncompressed image> <compressed image>\n";
+        exit(1);
+    }
+    imgb = argv[1];
+    imgc = argv[2];
+    ifstream f_in(imgb+".txt");
+    // Check valid filename
+    if (!f_in.is_open()) {
+        cerr << "File not found!\n";
+        exit(1);
+    }
+    ofstream f_out(imgc+".txt");
+    compressImg(f_in, f_out);
+    f_in.close();
+    f_out.close();
+}

@@ -1,0 +1,41 @@
+#include <iostream>
+#include <cstddef>
+using namespace std;
+
+void readArray(int a[], size_t nElem) {
+	for (size_t i = 0; i < nElem; i++) {
+		cout << i << " ? "; cin >> a[i];
+	}
+}
+
+int findValueInArray(const int a[], size_t nElem, int value, size_t pos1=0, size_t pos2=0) {
+	if (!pos2)
+		pos2 = nElem;
+	for (size_t i = pos1; i <= pos2; i++) {
+		if (a[i] == value)
+			return i;
+	}
+	return -1;
+}
+
+size_t findMultValuesInArray(const int a[], size_t nElem, int value, size_t pos1, size_t pos2, size_t index[]) {
+	size_t indexElem = 0;
+	for (size_t i = pos1; i <= pos2; i++) {
+		if (a[i] == value) {
+			index[indexElem++] = i;
+		}
+	}
+	return indexElem;
+}
+
+int main() {
+	int a[7], nElem = 7;
+	size_t index[nElem] = {};
+	readArray(a, nElem);
+	cout << findValueInArray(a, nElem, 5) << endl;
+	cout << findMultValuesInArray(a, nElem, 5, 0, 6, index) << endl << "[";
+	for (int i=0; i<7; i++)
+		cout << index[i] << ", ";
+	cout << "]" << endl;
+	return 0;
+}

@@ -1,0 +1,51 @@
+class Time {
+public:
+	Time(int h, int m, int s);
+	Time(const string &time);
+	void setH(int h);
+	void setM(int m);
+	void setS(int s);
+	int getH() const;
+	int getM() const;
+	int getS() const;
+	string getStr() const;
+	Time operator+(const Time &right) const;
+	Time operator-(const Time &right) const;
+private:
+	int h, m, s;
+};
+
+Time::Time(const string &time) {
+	stringstream ss;
+	char lixo;
+	ss << time;
+	ss >> this->h >> lixo >> this->m >> lixo >> this->s;
+}
+
+string Time::getStr() const {
+	string hour = to_string(getH());
+	if (hour.length() == 1) hour = "0" + hour;
+	string minute = to_string(getM());
+	if (minute.length() == 1) minute = "0" + minute;
+	string sec = to_string(getS());
+	if (sec.length() == 1) sec = "0" + sec;
+	return hour + ":" + minute + ":" + sec;
+}
+
+Time Time::operator+(const Time &right) const {
+	int total = this->getH() * 60 * 60 + this->getM() * 60 + this->getS() + right.getH() * 60 * 60 + right.getM() * 60 + right.getS();
+	return Time(total/60/60, (total/60)%60, total%60);
+}
+
+int main() {
+	string time;
+	cin >> time;
+	Time a(time);
+	cout << (a + Time(8,0,0)).getStr() << endl;
+	return 0;
+}
+
+/* Duas formas de anunciar que o parâmetro que recebeu é inválido seriam:
+	- Passar por referência um booleano que indicaria ser o parâmetro passado é válido.
+	- Lançar uma exceção (throw) que seria apanhada fora da função.
+*/

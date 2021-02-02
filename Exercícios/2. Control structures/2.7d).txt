@@ -1,0 +1,22 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+
+int main() {
+	unsigned long high = -1, number = high-1000, lastPrime;
+	while (true) {
+		bool isPrime = true;
+		for (int i = 2; i<=(int)sqrt(number); i++){
+			if (number % i == 0){
+				isPrime = false;
+				break;
+			}
+		}
+		if (isPrime) lastPrime = number;
+		if (number == high) break;
+		number++;
+	}
+	cout << "The largest prime number that can be stored in a variable of type unsigned long is " << lastPrime << endl;
+	return 0;
+}
+// Answer: 4294967291

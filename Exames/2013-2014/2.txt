@@ -1,0 +1,26 @@
+vector<string> convertResultList(const vector<unsigned int> &number, const vector<string> &name, const vector<float> &grade) {
+	vector<string> result;
+	string aux;
+	for (size_t i = 0; i < number.size(); i++) {
+		stringstream ss;
+		ss << setw(7) << number.at(i) << setw(20) << name.at(i) << setw(4) << grade.at(i);
+		getline(ss, aux);
+		result.push_back(aux);
+	}
+	return result;
+}
+
+int mode(const int number[], unsigned int numElems) {
+	int counter=-1, modeNum, aux;
+	for (int i = 0; i < numElems; i++) {
+		aux = countValues(number, numElems, number[i]);
+		if (aux > counter) {
+			counter = aux;
+			modeNum = number[i];
+		else if (aux == counter && number[i] > modeNum) {
+			counter = aux;
+			modeNum = number[i];
+		}
+	}
+	return modeNum;
+}

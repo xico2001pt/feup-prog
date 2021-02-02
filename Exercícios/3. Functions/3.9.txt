@@ -1,0 +1,90 @@
+#include<iostream>
+using namespace std;
+
+bool isLeapYear(int year) {
+	return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+}
+
+int monthDays(int month, int year) {
+	switch (month) {
+		case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+			return 31;
+		case 4: case 6: case 9: case 11:
+			return 30;
+		default:
+			if (isLeapYear(year)) return 29;
+			return 28;
+	}
+}
+
+int dayOfWeek(int day, int month, int year) {
+	int lastDigits = year % 100, firstDigits = year / 100;
+	int c;
+	switch (month) {
+		case 1:
+			if (isLeapYear(year)) c = 6;
+			else c = 0;
+			break;
+		case 2:
+			if (isLeapYear(year)) c = 2;
+			else c = 3;
+			break;
+		case 3: case 11:
+			c = 3;
+			break;
+		case 4: case 7:
+			c = 6;
+			break;
+		case 5:
+			c = 1;
+			break;
+		case 6:
+			c = 4;
+			break;
+		case 8:
+			c = 2;
+			break;
+		case 9: case 12:
+			c = 5;
+			break;
+		case 10:
+			c = 0;
+			break;
+	}
+	return ((int) (5*lastDigits/4)+c+day-2*(firstDigits%4)+7)%7;
+}
+
+void showMonth(int month, int year) {
+	string months[12] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+	int numDays = monthDays(month, year), firstWeekDay = (dayOfWeek(1, month, year)+6)%7;
+	bool firstDay = true;
+	cout << months[month-1] <<'/' << year << endl; // Month/Year
+	cout << "Sun\tMon\tTue\tWed\tThu\tFri\tSat" << endl; // Week days
+	for (int i=firstWeekDay, day=1; day<=numDays; i++, day++) { // Ciclo para mostrar dias
+		if (i == firstWeekDay && firstDay) {
+			firstDay = false;
+			for (int j=0; j<firstWeekDay; j++) {
+				cout << '\t';
+			}
+		}
+		if (i == 7) {
+			i = -1;
+			day--;
+			cout << '\n';
+		}
+		else {
+			cout << day;
+			if (i != 6) cout << '\t';
+		}
+	}
+	cout << "\n\n";
+}
+
+int main() {
+	int year;
+	cout << "Choose a year to display the full calendar: "; cin >> year;
+	for (int month=1; month <=12; month++) {
+		showMonth(month, year);
+	}
+	return 0;
+}

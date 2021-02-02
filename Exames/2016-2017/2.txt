@@ -1,0 +1,13 @@
+Date::Date(int y=1, int m=1, int d=1) {
+	this->y = y;
+	this->m = m;
+	this->d = d;
+}
+
+bool operator<(const Date &left, const Date &right) {
+	if (left.y != right.y)
+		return left.y < right.y;
+	else if (left.m != right.m)
+		return left.m < right.m;
+	return left.d < right.d;
+}

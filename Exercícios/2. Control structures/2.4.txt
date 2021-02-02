@@ -1,0 +1,16 @@
+#include<iostream>
+using namespace std;
+
+int main() {
+	int peso;
+	float preco;
+	cout << "Qual o peso da mercadoria (gramas) ? "; cin >> peso;
+	if (peso < 500)
+		preco = 5;
+	else if (peso >= 500 && peso <= 1000)
+		preco = 5 + (peso / 100 - 5) * 1.5;
+	else
+		preco = 12.5 + (peso / 250 - 10) * 5;
+	cout << "O custo do transporte será de " << preco << " euros." << endl;
+	return 0;
+}

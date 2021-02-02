@@ -1,0 +1,30 @@
+#include <iostream>
+#include <vector>
+#include <cstddef>
+using namespace std;
+
+void removeDuplicates(vector<int> &v) {
+	size_t index = 0, size = v.size();
+	int value;
+	while (index < size) {
+		value = v.at(index);
+		for (size_t i=index+1; i<size; i++) {
+			if (v.at(i) == value) {
+				for (size_t k=i; k<size-1; k++) {
+					v.at(k) = v.at(k+1);
+				}
+				v.resize(--size);
+				i--;
+			}
+		}
+		index++;
+	}
+}
+
+int main() {
+	vector<int> v{-1,3,3,-1,0,0,-1,3,2,4,5};
+	removeDuplicates(v);
+	for (size_t i=0; i<v.size(); i++)
+		cout << v.at(i) << " ";
+	return 0;
+}

@@ -1,0 +1,50 @@
+#include <iostream>
+#include <cstring>
+#include <vector>
+using namespace std;
+
+typedef struct {
+  string street;
+  unsigned door;
+  string city;
+} Address;
+
+typedef struct {
+  string name;
+  unsigned age;
+  string gender;
+  Address streetAddress;
+} Person;
+
+void readAddress(Address *addr) {
+  printf("Street ? "); getline(cin, addr->street);
+  printf("Door ? "); cin >> addr->door; cin.ignore(100, '\n');
+  printf("City ? "); getline(cin, addr->city);
+}
+
+void readPerson(Person *prs) {
+  printf("Name ? "); getline(cin, prs->name);
+  printf("Age ? "); cin >> prs->age; cin.ignore(100, '\n');
+  printf("Gender ? "); getline(cin, prs->gender);
+  readAddress(&(prs->streetAddress));
+}
+
+void writeAddress(const Address *addr) {
+  cout << "Street: " << addr->street << endl;
+  cout << "Door: " << addr->door << endl;
+  cout << "City: " << addr->city << endl;
+}
+
+void writePerson(const Person *prs) {
+  cout << "------------------------------------" << endl;
+  cout << prs->name << ": " << endl;
+  cout << "Age: " << prs->age << endl;
+  cout << "Gender: " << prs->gender << endl;
+  writeAddress(&(prs->streetAddress));
+}
+
+int main() {
+  Person person1;
+  readPerson(&person1);
+  writePerson(&person1);
+}

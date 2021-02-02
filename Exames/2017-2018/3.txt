@@ -1,0 +1,38 @@
+float average(const int grades[], int numStudents) {
+	float ave = 0;
+	for (int i = 0; i < numStudents; i++)
+		ave += grades[i];
+	return ave/numStudents;
+}
+
+int main() {
+	cout << "Number of students ? " << endl;
+	int nStd;
+	cin >> nStd;
+	int *grades = (int *) malloc(nStd * sizeof(int));
+	readGrades(grades, nStd);
+	cout << average(grades, nStd) << endl;
+	return 0;
+}
+
+/* b)
+	if (find(v.begin(), v.end(), "31") != v.end())
+		cout << "Value found!" << endl;
+	else
+		cout << "Vaçue not found!" << endl;
+*/
+/* c)
+Possívelmente isto aconteceu por o operador de comparação (<) não ter sido definido, já que este é necessário para verificar se um elemento já está presente num set.
+*/
+/* d)
+Saída:
+2 3
+2
+2 3
+Saída sem virtual:
+2 3
+2
+2
+Private:
+Daria erro de compilação, pois seria impossível aceder ao atributo da classe Base.
+*/

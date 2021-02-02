@@ -1,0 +1,43 @@
+#include<iostream>
+using namespace std;
+
+typedef struct {
+  unsigned int year, month, day;
+} Date;
+
+void readDate(Date *d) {
+  printf("Insert a date (year/month/day): ");
+  scanf("%u/%u/%u", &(*d).year, &(*d).month, &(*d).day);
+}
+
+void writeDate(const Date *d) {
+  cout << (*d).year << '/' << (*d).month << '/' << (*d).day << endl;
+}
+
+int compareDates(const Date *d1, const Date *d2) {
+  if ((*d1).year != (*d2).year)
+    return -1 + 2 * ((*d1).year > (*d2).year);
+  if ((*d1).month != (*d2).month)
+    return -1 + 2 * ((*d1).month > (*d2).month);
+  if ((*d1).day != (*d2).day)
+    return -1 + 2 * ((*d1).day > (*d2).day);
+  return 0;
+}
+
+void sortDates(Date *d1, Date *d2) {
+  Date temp;
+  if (compareDates(d1, d2) == 1) {
+    temp = *d1;
+    *d1 = *d2;
+    *d2 = temp;
+  }
+}
+
+int main() {
+  Date data1, data2;
+  readDate(&data1);
+  readDate(&data2);
+  sortDates(&data1, &data2);
+  writeDate(&data1);
+  writeDate(&data2);
+}

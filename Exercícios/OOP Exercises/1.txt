@@ -1,0 +1,128 @@
+#include <iostream>
+#include <string>
+#include <ctime>
+using namespace std;
+
+class Date {
+  public:
+    Date();
+    Date(unsigned int year, unsigned int month,unsigned int day);
+    Date(string yearMonthDay); // yearMonthDay must be in format "yyyy/mm/dd"
+    void setYear(unsigned int year);
+    void setMonth(unsigned int month);
+    void setDay(unsigned int day);
+    void setDate(unsigned int year, unsigned int month, unsigned int day);
+    unsigned int getYear() const;
+    unsigned int getMonth() const;
+    unsigned int getDay() const;
+    string getDate() const; // returns the date in format "yyyy/mm/dd"
+    void show() const; // shows the date on the screen in format "yyyy/mm/dd"
+    bool isValid() const;
+    bool isEqualTo(const Date &date) const;
+    bool isNotEqualTo(const Date &date) const;
+    bool isAfter(const Date &date) const;
+    bool isBefore(const Date &date) const;
+  private:
+    unsigned int year;
+    unsigned int month;
+    unsigned int day;
+    bool isLeapYear() const;
+    unsigned int monthDays() const;
+};
+
+Date::Date() {
+  time_t t = time(NULL);
+  struct tm *now = localtime(&t);
+  this->year = now->tm_year + 1900; this->month = now->tm_mon + 1; this->day = now->tm_mday;
+}
+Date::Date(unsigned int year, unsigned int month,unsigned int day) {
+  this->year = year; this->month = month; this->day = day;
+}
+
+Date::Date(string yearMonthDay) {
+  this->year = stoi(yearMonthDay.substr(0,4)); this->month = stoi(yearMonthDay.substr(5,2)); this->day = stoi(yearMonthDay.substr(8,2));
+}
+
+void Date::setYear(unsigned int year) {
+  this->year = year;
+}
+
+void Date::setMonth(unsigned int month) {
+  this->month = month;
+}
+
+void Date::setDay(unsigned int day) {
+  this->day = day;
+}
+
+void Date::setDate(unsigned int year, unsigned int month, unsigned int day) {
+  this->year = year; this->month = month; this->day = day;
+}
+
+unsigned int Date::getYear() const {
+  return this->year;
+}
+
+unsigned int Date::getMonth() const {
+  return this->month;
+}
+
+unsigned int Date::getDay() const {
+  return this->day;
+}
+
+string Date::getDate() const {
+  return to_string(this->year) + "/" + to_string(this->month) + "/" + to_string(this->day);
+}
+
+void Date::show() const {
+  cout << getDate();
+}
+
+bool Date::isLeapYear() const {
+	return this->year % 4 == 0 && (this->year % 100 != 0 || this->year % 400 == 0);
+}
+
+unsigned int Date::monthDays() const {
+	switch (this->month) {
+		case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+			return 31;
+		case 4: case 6: case 9: case 11:
+			return 30;
+		default:
+			if (isLeapYear()) return 29;
+			return 28;
+	}
+}
+
+bool Date::isValid() const {
+  return this->year >= 0 && this->month > 0 && this->month;
+}
+
+bool Date::isEqualTo(const Date &date) const {
+  return this->year == date.year && this->month == date.month && this->day == date.day;
+}
+
+bool Date::isNotEqualTo(const Date &date) const {
+  return !isEqualTo(date);
+}
+
+bool Date::isAfter(const Date &date) const {
+  if (this->year != date.year)
+    return this->year > date.year;
+  if (this->month != date.month)
+    return this->month > date.month;
+  if (this->day != date.day)
+    return this->day > date.day;
+  return false;
+}
+
+bool Date::isBefore(const Date &date) const {
+  if (this->year != date.year)
+    return this->year < date.year;
+  if (this->month != date.month)
+    return this->month < date.month;
+  if (this->day != date.day)
+    return this->day < date.day;
+  return false;
+}

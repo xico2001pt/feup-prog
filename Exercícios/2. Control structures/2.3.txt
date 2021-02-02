@@ -1,0 +1,12 @@
+#include<iostream>
+using namespace std;
+
+int main() {
+	int a, b;
+	cout << "a ? "; cin >> a;
+	cout << "b ? "; cin >> b;
+	if (a/2.0+b/2.0>2147483647/2.0) cout << "Sum Overflow";
+	else if (a/2.0+b/2.0<-2147483647/2.0) cout << "Sum Underflow";
+	else cout << "a + b = " << a+b;
+	return 0;
+}

@@ -1,0 +1,37 @@
+#include<iostream>
+#include<cmath>
+#include<iomanip>
+using namespace std;
+
+unsigned countDecimalPlaces(double number) {
+	unsigned counter = 0;
+	while (number - (int) number != 0) {
+		number *= 10;
+		counter++;
+	}
+	return counter;
+}
+
+double squareRoot(double n, double delta, int nMaxIter) {
+	double rq = 1, rqn, dif;
+	int iteration;
+	do {
+		rqn = (rq + n / rq) / 2;
+		rq = rqn;
+		dif = abs(n-pow(rqn, 2));
+		iteration++;
+	} while (dif>delta && iteration<nMaxIter);
+	return rqn;
+}
+
+int main() {
+	const streamsize oldPrecision = cin.precision();
+	double n, delta;
+	int nMaxIter;
+	cout << "Insert a number: "; cin >> n;
+	cout << "Insert precision: "; cin >> delta;
+	cout << "Insert number of iterations: "; cin >> nMaxIter;
+	unsigned places = countDecimalPlaces(delta);
+	cout << "The square root of " << n << " is " << fixed << setprecision(places) << squareRoot(n, delta, nMaxIter) << setprecision(oldPrecision) << " (" << places << " decimal places)" << endl;
+	return 0;
+}

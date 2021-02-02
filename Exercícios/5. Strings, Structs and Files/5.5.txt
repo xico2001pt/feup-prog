@@ -1,0 +1,55 @@
+#include <iostream>
+#include <string>
+#include <cstddef>
+using namespace std;
+
+string remEndBegSpaces(const string &s) {
+  const size_t strBeg = s.find_first_not_of(" ");
+  if (strBeg == string::npos)
+    return "";
+  const size_t strEnd = s.find_last_not_of(" ");
+  return s.substr(strBeg, strEnd - strBeg + 1);
+}
+
+string remMultipleSpaces(const string &s) {
+  size_t pos;
+  string s_cpy = s;
+  while((pos = s_cpy.find("  ")) != string::npos) {
+    s_cpy.replace(pos, 2, " ");
+  }
+  return s_cpy;
+}
+
+string strUpper(const string &s) {
+  string s_cpy = s;
+  for (size_t i=0; i<s.length(); i++)
+    s_cpy[i] = toupper(s[i]);
+  return s_cpy;
+}
+
+string removeParticles(const string &s) {
+  string s_cpy = s;
+  size_t pos;
+  bool changed = true;
+  do {
+    if ((pos = s_cpy.find(" DE ")) != string::npos)
+      s_cpy.replace(pos, 4, " ");
+    else if ((pos = s_cpy.find(" DO ")) != string::npos)
+      s_cpy.replace(pos, 4, " ");
+    else if ((pos = s_cpy.find(" DA ")) != string::npos)
+      s_cpy.replace(pos, 4, " ");
+    else if ((pos = s_cpy.find(" DOS ")) != string::npos)
+      s_cpy.replace(pos, 5, " ");
+    else if ((pos = s_cpy.find(" DAS ")) != string::npos)
+      s_cpy.replace(pos, 5, "");
+    else if ((pos = s_cpy.find(" E ")) != string::npos)
+      s_cpy.replace(pos, 3, " ");
+    else
+      changed = false;
+  } while (changed);
+  return s_cpy;
+}
+
+string normalizeName(const string &name) {
+  return removeParticles(strUpper(remMultipleSpaces(remEndBegSpaces(" Maria    da Felicidade   dos      Reis e  Passos  Dias   de Aguiar   "))));
+}

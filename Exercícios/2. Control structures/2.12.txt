@@ -1,0 +1,19 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+
+int main() {
+	double precision;
+	cout << "Qual a precisão do resultado? "; cin >> precision;
+	double sum = 2, prev_term=1, actual_term=1;
+	int i = 2;
+	do {
+		prev_term = actual_term;
+		actual_term = prev_term/i;
+		sum += actual_term;
+		i++;
+	} while(abs(actual_term-prev_term) >= abs(precision));
+	cout << "e = " << sum << endl;
+
+	return 0;
+}

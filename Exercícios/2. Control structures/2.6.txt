@@ -1,0 +1,12 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+
+int main() {
+	int n; float q, j;
+	cout << "Years ? "; cin >> n;
+	cout << "Amount ? "; cin >> q;
+	cout << "Annual interest rate ? "; cin >> j;
+	cout << "You can withdraw: " << q*pow(1+j/100, n) << "$" << endl;
+	return 0;
+}

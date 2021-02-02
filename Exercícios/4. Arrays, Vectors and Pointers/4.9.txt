@@ -1,0 +1,8 @@
+Initially, ref_x and ref_y store the memory adress of x and y, respectivly.
+Then, the memory adress of y is assigned to ref_x.
+Now, x will store the same value as y, as their memory adress is the same.
+Finally, their memory adress will be the same.
+---------------------------------------------------------------------------
+Initially, ptr_x and ptr_y store the memory adress of c and y, respectivly.
+Then, them memory adress of y s assigned to ptr_x.
+Now, x will store the same value as y, as their memory adress is the same.

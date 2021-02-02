@@ -1,0 +1,88 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <iomanip>
+using namespace std;
+
+//----------------------------------------------------------------------
+// AUXILIAR STRUCTS 
+//----------------------------------------------------------------------
+typedef struct {
+  string city;
+  string street;
+  string place;
+  unsigned door;
+  string zipCode;
+} Address;
+
+//----------------------------------------------------------------------
+// CLASS Client – DEFINITION AND IMPLEMENTATION 
+//----------------------------------------------------------------------
+class Client {
+  public:
+    string getName() const {
+      return name;
+    }
+    Address getAddress() const {
+      return address;
+    }
+  private:
+    string name;
+    Address address;
+};
+
+//----------------------------------------------------------------------
+// CLASS Product – DEFINITION AND IMPLEMENTATION 
+//----------------------------------------------------------------------
+class Product {
+  public:
+    string getDescription() const {
+      return description;
+    }
+    float getPrice() const {
+      return price;
+    }
+  private:
+    string description;
+    float price;
+};
+
+//----------------------------------------------------------------------
+// CLASS Item – DEFINITION AND IMPLEMENTATION 
+//----------------------------------------------------------------------
+class Item {
+  public:
+    Product getProduct() const {
+      return product;
+    }
+    unsigned getQty() const {
+      return qty;
+    }
+    float getTotal() const {
+      return total;
+    }
+  private:
+    Product product;
+    unsigned qty;
+    float total;
+};
+
+//----------------------------------------------------------------------
+// CLASS Invoice – DEFINITION AND IMPLEMENTATION 
+//----------------------------------------------------------------------
+class Invoice {
+  public:
+    void displayInvoice(Client client) const {
+      Address adr = client.getAddress();
+      double total = 0;
+      cout << left << setw(20) << "Description" << ' ' << setw(6) << "Price" << ' ' << setw(5) << "Qty" << " " << setw(8) << "Total" << endl;
+      cout << "-------------------- ------ ----- --------" << endl;
+      for (unsigned i=0; i < items.size(); i++) {
+        cout << left << setw(20) << items.at(i).getProduct().getDescription() << ' ' << setw(6) << items.at(i).getProduct().getPrice() << ' ' << setw(5) << items.at(i).getQty() << " " << setw(8) << items.at(i).getTotal() << endl;
+        total += items.at(i).getTotal();
+      }
+      cout << "\nAmount due: " << total << " euro" << endl;
+    }
+  private:
+    vector<Item> items;
+};

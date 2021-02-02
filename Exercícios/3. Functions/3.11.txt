@@ -1,0 +1,17 @@
+#include<iostream>
+using namespace std;
+
+unsigned greatestCommonDivisor(unsigned m, unsigned n) {
+	unsigned remainder = m % n;
+	if (remainder == 0) return n;
+	return greatestCommonDivisor(n, remainder);
+}
+
+int main() {
+  // User Input
+	unsigned m, n;
+	cout << "Choose two positive numbers (a b): "; cin >> m >> n;
+	// Output
+	cout << "The GDC is " << greatestCommonDivisor(m, n) << endl;
+  return 0;
+}

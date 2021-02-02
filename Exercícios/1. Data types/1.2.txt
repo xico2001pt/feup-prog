@@ -1,0 +1,16 @@
+#include<iostream>
+using namespace std;
+
+int main(){
+    int A, B, C;
+    cout << "Please, input 3 integer numbers" << endl;
+    cout << "A ? "; cin >> A;
+    cout << "B ? "; cin >> B;
+    cout << "C ? "; cin >> C;
+    float mean = (A+B+C)/3.0;
+    cout << "mean   = " << (int) (mean*1000)/1000.0 << endl;
+    cout << "A-mean = " << (int) ((A-mean)*1000)/1000.0 << endl;
+    cout << "B-mean = " << (int) ((B-mean)*1000)/1000.0 << endl;
+    cout << "C-mean = " << (int) ((C-mean)*1000)/1000.0;
+    return 0;
+}

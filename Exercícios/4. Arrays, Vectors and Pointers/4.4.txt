@@ -1,0 +1,27 @@
+#include <iostream>
+#include <vector>
+#include <cstddef>
+using namespace std;
+
+int binarySearch(const vector<int> &v, int value) {
+	size_t size = v.size();
+	size_t first = 0, last = size-1, middle;
+	int element;
+	while (first <= last) {
+		middle = (first + last) / 2;
+		element = v.at(middle);
+		if (element == value)
+			return middle;
+		else if (value < element)
+			last = middle-1;
+		else
+			first = middle+1;
+	}
+	return -1;
+}
+
+int main() {
+	vector<int> v{-2,-1,1,2,4,5,8,10,11};
+	cout << binarySearch(v, 10);
+	return 0;
+}

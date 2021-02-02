@@ -1,0 +1,5 @@
+a) This function returns a random integer between variables low and high. If no parameters are given, it generates a random number between 1 and 6 (inclusive).
+
+b) Esta fucção pode ser chamada de 3 formas distintas, tais como: rollDie(), rollDie(x), rollDie(x, y).
+
+c) It is not possible to overload this function with one whose prototype is int rollDie(), beacuse it's ambiguous, since the first functions can accept no parameters.

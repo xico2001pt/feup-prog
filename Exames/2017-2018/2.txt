@@ -1,0 +1,66 @@
+/* Como a classe Board tem um default constructor definido, pois caso não seja passado nenhum parametro ao construtor este assume os valores predefinidos, é permitida a sua inicialização em nenhum parametro, i.e. Board b; .
+Por outro lado, a class Ship não possui um default constructor, já que a sua inicialização só é permitida passando os respetivos parametros do constructor. Logo, a declaração Ship s; não é permitida. */
+
+Board::Board(size_t numLines, size_t numColumns) {
+	for (size_t line = 0; line < numLines; line++) {
+		vector<int> v;
+		for (size_t col = 0; col < numColumns; col++)
+			v.push_back(-1);
+		board.push_back(v);
+  }
+  this->numLines = numLines;
+  this->numColumns = numColumns;
+}
+
+bool Board:canPutShip(Position pos, char dir, size_t size) {
+	switch(dir)
+	{
+		case 'H':
+			if (pos.lin < 0 || pos.col < 0 || pos.col + size > numColumns)
+				return false;
+			for (int i = 0; i < size; i++)
+				if (board.at(pos.lin).at(pos.col + i) != -1)
+					return false;
+		break;
+		case 'V':
+			if (pos.lin < 0 || pos.col < 0 || pos.lin + size > numLines)
+				return false;
+			for (int i = 0; i< size; i++)
+				if (board.at(pos.lin + i).at(pos.col) != -1)
+					return false;
+		break;
+	}
+	return true;
+}
+
+bool Board::putShip(const Ship &s) {
+	if (!canPutShip(s.pos(), s.dir(), s.size()))
+		return false;
+	ships.push_back(s);
+	for (int i = 0; i < s.size(); i++) {
+		if (s.dir() == 'H')
+			board.at(s.pos().lin).at(s.pos().col + i) = s.id();
+		else
+			board.at(s.pos().lin + i).at(s.pos().col) = s.id();
+	}
+	return true;
+}
+
+int main() {
+	Board b(10, 20);
+	cout << "Insira o dados do barco: id symbol line column direction size" << endl;
+	unsigned int id;
+	Position pos;
+	char symbol, dir;
+	size_t size;
+	cin >> id >> symbol >> pos.lin >> pos.col >> dir >> size;
+	Ship s(id, symbol, pos, dir, size);
+  try {
+    if (b.putShip(s) == 0)
+      throw logic_error("Can't put ship!");
+  }
+  catch(logic_error &e) {
+    cout << e.what();
+  }
+	return 0;
+}

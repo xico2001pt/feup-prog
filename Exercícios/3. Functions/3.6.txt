@@ -1,0 +1,8 @@
+#include<iostream>
+#include<ctime>
+using namespace std;
+
+time_t timeElapsed() {
+	static time_t time_0 = time(NULL);
+	cout << time(NULL) - time_0 << " ";
+}

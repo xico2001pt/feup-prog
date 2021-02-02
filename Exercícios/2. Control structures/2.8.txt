@@ -1,0 +1,22 @@
+#define _USE_MATH_DEFINES
+#include<iostream>
+#include<cmath>
+#include<iomanip>
+using namespace std;
+
+int main() {
+	// Input
+	double lower, upper, increment;
+	cout << "Lower Range ? "; cin >> lower;
+	cout << "Upper Range ? "; cin >> upper;
+	cout << "Increment ? "; cin >> increment;
+  // Output
+	cout << fixed;
+  cout << "ang\tsin\t\tcos\t\ttan\n";
+	for (double i=lower; i<=upper; i+= increment) {
+		double rad = i*M_PI/180;
+		cout << setprecision(1);
+		cout << i << setprecision(6) << "\t" << sin(rad) << "\t" << cos(rad) << "\t" << tan(rad) << endl;
+	}
+	return 0;
+}

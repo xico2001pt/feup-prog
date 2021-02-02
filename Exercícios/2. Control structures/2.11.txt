@@ -1,0 +1,33 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+
+int main() {
+	unsigned n;
+	cout << "Qual o número de termos? "; cin >> n;
+	double a_sum = 0, b_sum = 1, c_sum = 1;
+	double prev_term=1;
+	// Alinea a)
+	for (int i = 0; i<n; i++){
+		a_sum += pow(-1,i)*4.0/(2*i+1);
+	}
+	cout << "pi = " << a_sum << endl;
+	// Alinea b)
+	for (int i = 1; i<n+1; i++){
+		double actual_term = prev_term/i;
+		prev_term = actual_term,
+		b_sum += actual_term;
+	}
+	cout << "e = " << b_sum << endl;
+	// Alinea c)
+	prev_term = 1;
+	double x;
+	cout << "Qual o valor de x em e^-x? "; cin >> x;
+	for (int i = 1; i<n+1; i++){
+		double actual_term = prev_term/i;
+		prev_term = actual_term,
+		c_sum += pow(-1,i)*pow(x,i)*actual_term;
+	}
+	cout << "e^-" << x << " = " << c_sum;
+	return 0;
+}

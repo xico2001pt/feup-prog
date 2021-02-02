@@ -1,0 +1,17 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+template <typename T>
+void maxAndMin(vector<T> v) {
+  if (v.size() == 0) cout << "Vector is empty!\n";
+  else {
+    T Max=v.at(0), Min=v.at(0), val;
+    for (unsigned i=1; i < v.size(); i++) {
+      val = v.at(i);
+      if (val > Max) Max = val;
+      else if (val < Min) Min = val;
+    }
+    cout << "Min: " << Min << "\nMax: " << Max << endl;
+  }
+}

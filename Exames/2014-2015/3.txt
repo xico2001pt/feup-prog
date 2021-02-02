@@ -1,0 +1,16 @@
+Pluviosity::Pluviosity(int year) {
+	this->year = year;
+	for (int month=1; month <= 12; month++) {
+		vector<int> v(numDaysOfMonth(month,year), 0);
+		pluv.push_back(v);
+	}
+}
+
+int Pluviosity::maxPluv() const {
+	int max_value = 0;
+	for (int month = 0; month < 12; month++)
+		for (int day = 0; day < pluv.at(month).size(); day++)
+			if (pluv.at(month).at(day) > max_value)
+				max_value = pluv.at(month).at(day);
+	return max_value;
+}

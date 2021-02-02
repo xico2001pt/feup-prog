@@ -1,0 +1,22 @@
+#include<iostream>
+#include<ctime>
+using namespace std;
+
+int randomBetween(int min, int max) {
+	return min + rand()%(max-min+1);
+}
+
+int main() {
+	srand(time(NULL)); // Determinar seed do random
+	int randomNumber1 = randomBetween(2, 9), randomNumber2 = randomBetween(2, 9);
+	int answer = randomNumber1 * randomNumber2, userGuess;
+	cout << "What is the result of " << randomNumber1 << "*" << randomNumber2 << " ? ";
+	time_t time_0 = time(NULL);
+	cin >> userGuess;
+	time_t totalTime = time(NULL) - time_0;
+	if (userGuess != answer) cout << "Very Bad!\n";
+	else if (totalTime < 5) cout << "Good!\n";
+	else if (totalTime > 10) cout << "Insufficient!\n";
+	else cout << "Satisfactory!\n";
+	return 0;
+}

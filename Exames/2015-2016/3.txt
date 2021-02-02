@@ -1,0 +1,32 @@
+/* a) Será mostrado: 1 - 2 */
+
+/* b)
+Point();
+Point(int x, int y);
+Point& setX(int x);
+Point& setY(int y);
+*/
+
+/* c)
+template <typename T1, typename T2>
+class Point {
+public:
+	Point();
+	Point(T1 x, T2 y);
+	T1 getX() const;
+	T2 getY() const;
+private:
+	T1 x;
+	T2 y;
+};
+Point<char, int> p('A', 3);
+*/
+
+/* d)
+É possível, pois a classe vector suporta iteradores do tipo random access, enquanto que a função reverse apenas exige iteradores to tipo Bidirectional Iterator.
+A função deve ser chamada da seguinte forma:
+reverse(vec.begin(), vec.end());
+*/
+
+/* e)
+É possível fazê-lo. No entanto, existe a possíbilidade de os atributos da classe Animal não serem os mesmo da classe Fish ou Bird, estando peranto o denominado "slicing problem".

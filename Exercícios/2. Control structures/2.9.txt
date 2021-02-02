@@ -1,0 +1,30 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+
+int main() {
+	long long int number; int size=0;
+	cout << "Pick a number: "; cin >> number;
+	// Contar dígitos
+	long long int numberCopy = number;
+	do{
+		size++;
+		numberCopy /= 10;
+	}while (numberCopy > 0);
+	// Verificar se é palindromo
+	bool palindrome = true;
+	while (number > 0){
+		short int first = number % 10, last = number / pow(10, size-1);
+		if (!(first == last)){
+			palindrome = false;
+			break;
+		}
+		number = (number - first * pow(10, size-1))/10;
+		size -= 2;
+	}
+	if (palindrome)
+		cout << "It's a palindrom!" << endl;
+	else
+		cout << "It's not a palindrom!" << endl;
+	return 0;
+}

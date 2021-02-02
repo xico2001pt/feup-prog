@@ -1,0 +1,9 @@
+Initially, the variable values will store the memory adress of the first element of the array.
+Then, the variable p is a pointer to the memory adress of the second element of the array.
+- values[1] will return the second element of the array
+- values+1 will return the memory adress of the second element
+- *p will return the value that is stored in the memory adress pointed by p, which is the second element
+- *(values+3) will return the value that is stored in the memory adress pointed by value plus 3 times 4 bytes, which i the fourth element
+- p+1 will return the memory adress of the element folowed by the memory adress stored in p, which is the third element
+- p[1] will return the value stored in the third element of the array
+- p-values will return the diference between the memory adress of each, which is 1, because they point to consecutive memory adresses

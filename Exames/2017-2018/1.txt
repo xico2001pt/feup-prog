@@ -1,0 +1,43 @@
+void toUpperStr(string &s) {
+	for (int i=0; i < s.length(); i++)
+		if (s[i] >= 'a' && s[i] <= 'z')
+			s[i] += ('A'-'a');
+}
+
+string transformLine(const string &s) {
+	string result;
+	for (int i=0; i < s.length(); i++) {
+		if ((s[i] < 'a' || s[i] > 'z') && (s[i] < 'A' || s[i] > 'Z') && s[i] != ' ')
+			result += ' ';
+		else
+			result += s[i];
+	}
+	toUpperStr(result);
+	return result;
+}
+
+void decomposeLine(string line, vector<string> &words) {
+	line = transformLine(line);
+	stringstream ss;
+	ss << line;
+	string aux;
+	while (ss >> aux)
+		words.push_back(aux);
+}
+
+int main() {
+	ifstream fin("C:\\docs\\text.txt");
+	string s;
+	vector<string> v;
+	while (getline(fin, s))
+		decomposeLine(s, v);
+	fin.close();
+	ofstream fout("words.txt");
+	sort(v.begin(), v.end());
+	for (string word : v)
+		fout << word << endl;
+	fout.close();
+	return 0;
+}
+
+/* Para que não surjam palavras repetidas, poderia ser usado um set ao invés de um vector. */

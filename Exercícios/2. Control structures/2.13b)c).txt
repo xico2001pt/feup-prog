@@ -1,0 +1,33 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+
+int main() {
+	double number, sum = 0, sumSquared = 0, smallest, largest;
+	unsigned i = 0;
+	bool endOfCicle = false;
+	do {
+		cout << "Number " << i+1 << " ? "; cin >> number;
+		if (cin.fail() || cin.peek() != '\n') {
+			endOfCicle = cin.eof();
+			cin.clear();
+			cin.ignore(10000, '\n');
+		}
+		else if (number == 0) endOfCicle = true; 
+		else {
+			sum += number;
+			sumSquared += pow(number, 2);
+			if (i == 0 || number>largest) largest = number;
+			if (i == 0 || number<smallest) smallest = number;
+			i++;
+		}
+	} while(!endOfCicle);
+	double average = sum/i;
+	double standardDeviation = sqrt((sumSquared-2*sum*average+pow(average, 2)*i)/i);
+	cout << "The sum is: " << sum << endl;
+	cout << "The mean is: " << average << endl;
+  cout << "The standard deviation is: " << standardDeviation << endl;
+	cout << "The smallest is: " << smallest << endl;
+	cout << "The largest is: " << largest << endl;
+	return 0;
+}

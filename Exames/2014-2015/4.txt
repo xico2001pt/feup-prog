@@ -1,0 +1,16 @@
+/* a)
+Estática: int p[100]; / average(p, 100);
+Dinâmica: int *p = (int *) malloc(100 * sizeof(int)); / average(p, 100);
+*/
+
+/* b) Por exemplo, retornado um booleano por parametro por referência, indicando se houve ou não algum erro.
+Também seria possível lançar uma exceção que seria apanhada fora do construtor.
+*/
+
+/* c) Quando é alocada memória dinâmicamente */
+
+/* d) Para que o operado << possa ser usado em cadeia, isto é, várias vezes */
+
+/* e) ... */
+
+/* f) Utilizaria, por exemplo, uma classe Desenho que teria um vetor de Shape pointers, onde seriam guardados apontadores para as várias figuras. */

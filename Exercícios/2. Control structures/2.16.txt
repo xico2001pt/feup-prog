@@ -1,0 +1,55 @@
+#include<iostream>
+using namespace std;
+
+int main() {
+	double operand1, operand2, result=0, memory=0;
+	char sign;
+	string command;
+	bool validOperation, powerOn = true;
+	while (powerOn) {
+		cout << "Insert an operation: ";
+		cin >> operand1 >> sign >> operand2;
+		if (cin.fail() || cin.peek()!='\n'){
+			cin.clear(); // Clear flag
+      getline(cin, command);
+			if (!command.compare("M")) { cout << "Memorizing...\n"; memory = result; }
+			else if (!command.compare("MC")) memory = 0;
+			else if (!command.compare("M+")) memory += result;
+			else if (!command.compare("M-")) memory -= result;
+			else if (!command.compare("MR")) cout << "Memory: " << memory << endl;
+			else if (!command.compare("OFF")) powerOn = false;
+			else if (!command.compare("C")) system("cls");
+			else cerr << "Invalid command!" << endl;
+		}
+		else {
+			validOperation = true;
+			switch (sign) {
+				case '+':
+					result = operand1 + operand2;
+					break;
+				case '-':
+					result = operand1 - operand2;
+					break;
+				case '*':
+					result = operand1 * operand2;
+					break;
+				case '/':
+					if (operand2 == 0) {
+						validOperation = false;
+						break;
+					}
+					result = operand1 / operand2;
+					break;
+				default:
+					validOperation = false;
+			}
+			if (validOperation){
+				cout << "Result: " << result << endl;
+			}
+			else {
+				cerr << "Invalid operation!";
+			}
+		}
+	}
+	return 0;
+}

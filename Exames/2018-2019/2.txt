@@ -1,0 +1,46 @@
+int count(const vector<int> &v, int value) {
+	int counter = 0;
+	for (int num : v)
+		if (num == value)
+			counter++;
+	return counter;
+}
+
+/* O vector v é passado para a função como referência por questões de eficiência, pois, já que a finalidade da função não altera o vetor, evita que seja feita uma cópia, poupando-se tempo e memória. */
+
+int main() {
+	vector<int> v;
+	int aux;
+	while (cin >> aux)
+		v.push_back(aux);
+	int result = count(v, 0);
+	cout  << result << endl;
+	return 0;
+}
+
+/* Seria necessário recorrer a uma template function. Deste modo, apenas teria de se acrescentar: template<class T> antes da função e substituir int por T . */
+
+/* Seria preciso implementar uma overloaded function do operador de comparação (<) */
+
+int count(const a[], int size, int value) {
+	int counter = 0;
+	for (int i = 0; i < size; i++)
+		if (a[i] == value)
+			counter++;
+	return counter;
+}
+
+int main() {
+	int a[100];
+	int aux;
+	int i = 0;
+	while (cin >> aux) {
+		a[i] = aux;
+		i++;
+	}
+	int result = count(a, i, 0);
+	cout  << result << endl;
+	return 0;
+}
+
+/* Para utilizar a função da STL, seria necessário fornecer como parametros count(v.begin(), v.end(), value) */

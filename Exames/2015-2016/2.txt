@@ -1,0 +1,45 @@
+class Board {
+public:
+	Board(unsigned int numLines, unsigned int numColumns, char emptyCell);
+	unsigned int getNumLines() const;
+	unsigned int getNumColumns() const;
+	char getCell(unsigned int line, unsigned int column) const;
+	string getLine(unsigned int line) const;
+	string getColumn(unsigned int column) const;
+	bool setCell(unsigned int line, unsigned int column, char symbol);
+	void displayBoard() const;
+private:
+	char emptyCell;
+	unsigned int numLines, numColumns;
+	vector<string> board;
+};
+
+Board::Board(unsigned int numLines, unsigned int numColumns, char emptyCell) {
+	this->numLines = numLines;
+	this->numColumns = numColumns;
+	this->emptyCell = emptyCell;
+	string line(numColumns, emptyCell);
+	for (unsigned int i = 0; i < numLines; i++)
+		board.push_back(line);
+}
+
+string getColumn(unsigned int column) const {
+	string column;
+	for (unsigned int i = 0; i < numLines; i++)
+		column += board.at(i).at(column-1);
+	return column;
+}
+
+bool testSequence(const Board &b, unsigned int column, char symbol, int size) {
+	string line = b.getColumn(column);
+	int counter = 0;
+	for (unsigned int i = 0; i < b.getNumLines(); i++) {
+		if (line.at(i) == symbol)
+			counter++;
+		else
+			counter = 0;
+		if (counter == size)
+			return true;
+	}
+	return false;
+}

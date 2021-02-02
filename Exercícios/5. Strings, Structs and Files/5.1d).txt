@@ -1,0 +1,37 @@
+#include <iostream>
+#include <cstring>
+#include <cstddef>
+using namespace std;
+
+char encryptChar(char c, int key) {
+  char result;
+  key = (key+26*10)%26;
+  if (c>='a' && c<='z') { // Lowercase
+    result = (int)'a' + ((int)c+key-(int)'a')%26;
+  }
+  else if (c>='A' && c<='Z') { // Lowercase
+    result = (int)'A' + ((int)c+key-(int)'A')%26;
+  }
+  else result = c;
+  return result;
+}
+
+void encryptString(char *s, size_t size, int key) {
+  for (int i=0; i<size; i++)
+    s[i] = encryptChar(s[i], key);
+}
+
+int main() {
+  char s[100];
+  size_t size=100;
+  int key;
+  cout << "What sentece do you want to encrypt ? ";
+  cin.getline(s, 32);
+  cout << "What's the amount of shift ? ";
+  cin >> key;
+  encryptString(s, 100, key);
+  cout << "Encrypted result: ";
+  for (int i=0; i<size; i++)
+    cout << s[i];
+  cout << endl;
+}

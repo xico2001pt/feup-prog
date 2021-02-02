@@ -1,0 +1,81 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+typedef unsigned long Id;
+Id currentId = 0;
+//----------------------------------------------------------------------
+// AUXILIAR STRUCTS 
+//----------------------------------------------------------------------
+typedef struct {
+  string city;
+  string street;
+  string place;
+  unsigned door;
+  string zipCode;
+} Address;
+
+//----------------------------------------------------------------------
+// CLASS Product – DEFINITION AND IMPLEMENTATION 
+//----------------------------------------------------------------------
+class Product {
+  public:
+    Product(const string description) {
+      this->id = ++currentId; this->description = description; this->availableQty = 0;
+    }
+    void setAvailableQty(const unsigned availableQty) {
+      this->availableQty = availableQty;
+    }
+    Id getId() const {return id;} 
+    string getDescription() const {return description;}
+    unsigned getAvailableQty() const {return availableQty;}
+  private:
+    Id id;
+    string description;
+    unsigned availableQty;
+};
+
+//----------------------------------------------------------------------
+// CLASS Inventory – DEFINITION AND IMPLEMENTATION 
+//----------------------------------------------------------------------
+class Inventory {
+  public:
+    int findId(vector<Id> products, Id id) {
+      for (Id i=0; i<products.size(); i++)
+        if (products.at(i) == id)
+          return i;
+      return -1;
+    }
+    void createProduct() {
+      string description;
+      cout << "What's the description of the product you want to create ? "; cin >> description;
+      products.push_back(Product(description));
+    }
+    void addProduct() {
+      Id id;
+      cout << "What's the id of the product you want to add ? "; cin >> id;
+      if (id - 1 >= 0) {
+        int index = findId(backOrders, id);
+        if (index != -1)
+          backOrders.erase(backOrders.begin());
+        else
+          products.at(id - 1).setAvailableQty(products.at(id - 1).getAvailableQty() + 1);
+      }
+      else cout << "Product not found!" << endl;
+    }
+    void processOrder() {
+      Id id;
+      cout << "What's the id of the product you want ? "; cin >> id;
+      if (products.at(id - 1).getAvailableQty() > 0) {
+        products.at(id - 1).setAvailableQty(products.at(id - 1).getAvailableQty() - 1);
+      }
+      else {
+        cout << "Product not available!" << endl;
+        backOrders.push_back(id);
+      }
+    }
+  private:
+    vector<Product> products;
+    vector<Id> backOrders;
+};

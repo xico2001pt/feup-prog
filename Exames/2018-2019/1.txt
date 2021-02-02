@@ -1,0 +1,20 @@
+F
+V
+V
+F
+F
+F
+F
+F
+F
+V
+V
+V
+F, pois vector é do tipo random acess e list é bidirectional
+V
+F
+V
+V
+V
+F
+V

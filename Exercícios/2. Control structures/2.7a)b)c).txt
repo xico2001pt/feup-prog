@@ -1,0 +1,22 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+
+int main() {
+	unsigned primes = 0, number = 2;
+	while (primes < 100) {
+		bool isPrime = true;
+		for (int i = 2; i<=(int)sqrt(number); i++){
+			if (number % i == 0){
+				isPrime = false;
+				break;
+			}
+		}
+		if (isPrime){
+			primes++;
+			cout << primes << ": " << number << endl;
+		}
+		number++;
+	}
+	return 0;
+}

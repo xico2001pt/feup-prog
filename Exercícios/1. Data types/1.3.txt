@@ -1,0 +1,14 @@
+#define _USE_MATH_DEFINES
+#include<iostream>
+#include<cmath>
+
+using namespace std;
+
+int main() {
+    float density, radius;
+    cout << "What's the density? (kg/m^3) "; cin >> density;
+    cout << "What's the radius? (m) "; cin >> radius;
+    float mass = 4.0/3*(density*M_PI*pow(radius, 3));
+    cout << "The mass of the sphere is: " << mass << " kg.";
+    return 0;
+}

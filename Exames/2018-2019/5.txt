@@ -1,0 +1,22 @@
+/* "Diria que usar um Struct ao invés da Class Page. Em C++, uma Struct e uma Classe são essencialmente a mesma coisa. Uma struct em C++ pode ter construtores, métodos, membros públicos, privados, protegidos, usar herança, etc (existe algumas diferenças, mas poucas). Existem Guidelines para o uso de cada uma como podes conferir neste link: https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/choosing-between-class-and-struct. No entanto, diria que não há uma vantagem óbvia a usar um struct em vez de uma classe neste caso.
+Em relação ao índice, poderias usar um set<pair<string,vector<int>> ao invés de um map. No entanto, isto não é uma boa alternativa. Usar um set com pairs é essencialmente tentar torná-lo num map. Sets são usados para guardar chaves, maps para guardar pares entre chaves e valores. Não há motivo para lidar com a Classe Pair explicitamente. Relembro que esta pergunta pode ter várias respostas". Alguem perguntou no slack novo e essa foi a resposta */
+
+void Book::buildIndex(const set<string> &words) {
+	for (string word : words) {
+		vector<int> v;
+		for (Page page : pages) {
+			if (page.hasWord(word))
+				v.push_back(page.getPageNumber());
+		}
+		if (v.size() > 0)
+			index.insert(pair<string, vector<int> >(word, v));
+	}
+}
+
+int main() {
+	Book book("C++ Book.txt");
+	set<string> words = {"computer", "algorithm", "program"};
+	book.buildIndex(words);
+	book.showIndex(cout);
+	return 0;
+}

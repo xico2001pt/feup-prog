@@ -1,0 +1,33 @@
+void get_code_sum(const string &code_grades, int num_grades, string &code, double &sum) {
+	stringstream ss(code_grades);
+	string lixo;
+	double score;
+	ss >> code >> lixo;
+	sum = 0;
+	for (int i = 0; i < num_grades; i++) {
+		ss >> score;
+		sum += score;
+	}
+}
+
+int main() {
+	string root;
+	cout << "What's the root of the file ?" << endl;
+	getline(cin, root);
+	ifstream fin(root+".txt");
+	if (!fin.is_open())
+		exit(1);
+	ofstream fout(root+"_final.txt");
+	int num_grades;
+	fin >> num_grades;
+	fin.ignore(1000, '\n') // Clear the remaining '\n'
+	string line, code;
+	double sum;
+	while (getline(fin, line)) {
+		get_code_sum(line, num_grades, code, sum);
+		fout << code << " - " << sum;
+	}
+	fin.close();
+	fout.close();
+	return 0;
+}

@@ -1,0 +1,102 @@
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+//----------------------------------------------------------------------
+// CLASS Student – DEFINITION 
+//----------------------------------------------------------------------
+class Student {
+  public:
+    Student();
+    Student(const string &code, const string &name);
+    void setGrades(double shortExam, double project, double exam);
+    string getCode() const;
+    string getName() const;
+    int getFinalGrade() const; // other get and set methods
+    bool isApproved() const; // is the student approved or not ?
+    static int weightShortExam, weightProject, weightExam; // weights in percentage (ex:20,30,50)
+  private:
+    string code; // student code
+    string name; // student complete name
+    double shortExam, project, exam; // grades obtained by the student in the different components
+    int finalGrade;
+};
+
+//----------------------------------------------------------------------
+// CLASS Student – STATIC ATTRIBUTE INITIALIZATION 
+//----------------------------------------------------------------------
+int Student::weightShortExam = 20;
+int Student::weightProject = 30;
+int Student::weightExam = 50;
+
+//----------------------------------------------------------------------
+// CLASS Student – IMPLEMENTATION 
+//----------------------------------------------------------------------
+Student::Student() {
+  code = name = "";
+  shortExam = project = exam = 0;
+}
+//----------------------------------------------------------------------
+Student::Student(const string &code, const string &name) {
+  this->code = code;
+  this->name = name;
+  shortExam = project = exam = 0;
+}
+//----------------------------------------------------------------------
+void Student::setGrades(double shortExam, double project, double exam) {
+  // Set grades values
+  this->shortExam = shortExam;
+  this->project = project;
+  this->exam = exam;
+  // Calculate and set final grade
+  finalGrade = int((weightShortExam * shortExam + weightProject * project + weightExam * exam) / 100 + 0.5);
+}
+//----------------------------------------------------------------------
+string Student::getCode() const {
+  return code;
+}
+//----------------------------------------------------------------------
+string Student::getName() const {
+  return name;
+}
+//----------------------------------------------------------------------
+int Student::getFinalGrade() const {
+  return finalGrade;
+}
+//----------------------------------------------------------------------
+bool Student::isApproved() const {
+  return finalGrade >= 10;
+}
+
+//----------------------------------------------------------------------
+// UTILITARY FUNCTIONS
+//----------------------------------------------------------------------
+
+Student readStudentData() {
+  string name, code;
+  double shortExam, project, exam;
+  cout << "Student code? "; cin >> code; cin.ignore(100, '\n');
+  cout << "Student name? "; getline(cin, name);
+  cout << "Short exam grade? "; cin >> shortExam;
+  cout << "Project grade? "; cin >> project;
+  cout << "Exam grade? "; cin >> exam;
+  Student student(code, name);
+  student.setGrades(shortExam, project, exam);
+  return student;
+}
+//----------------------------------------------------------------------
+void showAboveAverageStudent(ostream &fout, vector<Student> students) {
+  // Find the average of the students
+  double average = 0;
+  for (unsigned i=0; i < students.size(); i++)
+    average += students.at(i).getFinalGrade();
+  average /= students.size();
+  // Print the above average students
+  Student st;
+  for (unsigned i=0; i < students.size(); i++)
+    if (students.at(i).getFinalGrade() > average) {
+      st = students.at(i);
+      fout << st.getCode() << ";" << st.getName() << ";" << st.getFinalGrade() << endl;
+    }
+}

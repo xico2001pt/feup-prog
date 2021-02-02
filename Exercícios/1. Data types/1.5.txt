@@ -1,0 +1,11 @@
+#include<iostream>
+using namespace std;
+
+int main() {
+    int hours1, hours2, minutes1, minutes2, seconds1, seconds2;
+    cout << "Time1 (hours minutes seconds) ? "; scanf("%d %d %d", &hours1, &minutes1, &seconds1);
+    cout << "Time2 (hours minutes seconds) ? "; scanf("%d %d %d", &hours2, &minutes2, &seconds2);
+    cout << "Time1 + Time2 = " << (hours1+hours2)/24 << " day, " << (hours1+hours2)%24+(minutes1+minutes2)/60 <<
+    " hours, " << (minutes1+minutes2)%60+(seconds1+seconds2)/60 << " minutes and " << (seconds1+seconds2)%60 << " seconds.";
+    return 0;
+}

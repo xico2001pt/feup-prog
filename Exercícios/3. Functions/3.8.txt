@@ -1,0 +1,77 @@
+#include<iostream>
+using namespace std;
+
+bool readFraction(int &numerator, int &denominator) {
+	bool verify = (cin.fail() || cin.peek() != '\n' || denominator == 0);
+	cin.clear();
+	return !(verify);
+}
+
+int greatestCommonDivisor(int a, int b) {
+	a = abs(a); b = abs(b);
+	if (a == b) return a;
+	else if (a == 0) return b;
+	else if (b == 0) return a;
+	else return greatestCommonDivisor(max(a, b)-min(a, b), min(a, b));
+}
+
+void reduceFraction(int &numerator, int &denominator) {
+	int gdc = greatestCommonDivisor(numerator, denominator);
+	if (numerator <= 0 && denominator < 0) {
+		numerator *= -1;
+		denominator *= -1;
+	}
+	numerator /= gdc;
+	denominator /= gdc;
+}
+
+string addition(int numerator1, int denominator1, int numerator2, int denominator2) {
+	int numerator = numerator1 * denominator2 + numerator2 * denominator1;
+	int denominator = denominator1 * denominator2;
+	reduceFraction(numerator, denominator);
+	string result = to_string(numerator) + '/' + to_string(denominator);
+	return result;
+}
+
+string subtraction(int numerator1, int denominator1, int numerator2, int denominator2) {
+	int numerator = numerator1 * denominator2 - numerator2 * denominator1;
+	int denominator = denominator1 * denominator2;
+	reduceFraction(numerator, denominator);
+	string result = to_string(numerator) + '/' + to_string(denominator);
+	return result;
+}
+
+string multiplication(int numerator1, int denominator1, int numerator2, int denominator2) {
+	int numerator = numerator1 * numerator2;
+	int denominator = denominator1 * denominator2;
+	reduceFraction(numerator, denominator);
+	string result = to_string(numerator) + '/' + to_string(denominator);
+	return result;
+}
+
+string division(int numerator1, int denominator1, int numerator2, int denominator2) {
+	int numerator = numerator1 * denominator2;
+	int denominator = denominator1 * numerator2;
+	reduceFraction(numerator, denominator);
+	string result = to_string(numerator) + '/' + to_string(denominator);
+	return result;
+}
+
+int main() {
+    // User Input
+		int x, num1, den1, num2, den2;
+		cout << "Insert fraction 1: "; scanf("%i/%i", &num1, &den1);
+		cout << "Insert fraction 2: "; scanf("%i/%i", &num2, &den2);
+		// Output
+		if (!(readFraction(num1, den1) && readFraction(num2, den2))) cout << "It's not a fraction!";
+		else {
+			reduceFraction(num1, den1); reduceFraction(num2, den2);
+			cout << "Simplified 1: " << num1 << '/' << den1 << endl;
+			cout << "Simplified 2: " << num2 << '/' << den2 << endl;
+			cout << "Addition: " << addition(num1, den1, num2, den2) << endl;
+			cout << "Subtraction: " << subtraction(num1, den1, num2, den2) << endl;
+			cout << "Multiplication: " << multiplication(num1, den1, num2, den2) << endl;
+			cout << "Division: " << division(num1, den1, num2, den2) << endl;
+		}
+    return 0;
+}

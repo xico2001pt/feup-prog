@@ -1,0 +1,18 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+
+double round(double x, unsigned n) {
+	return floor(x*pow(10, n)+0.5)/pow(10, n);
+}
+
+int main() {
+    // User Input
+		double x; unsigned n;
+    cout << "Let's test some values:\n" << "(ENTER 0 TO EXIT)" << endl;
+		for (int i=0; i<3; i++) {
+			cout << "Input (x n) ? "; cin >> x >> n;
+			cout << "Result: " << round(x, n); // Output
+		}
+    return 0;
+}

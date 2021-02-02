@@ -1,0 +1,24 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+
+int main() {
+	unsigned length;
+	cout << "What's the length of the sequence ? "; cin >> length;
+	double number, sum = 0, sumSquared = 0, smallest, largest;
+	for (int i=0; i<length; i++) {
+		cout << "Number " << i+1 << " ? "; cin >> number;
+		sum += number;
+		sumSquared += pow(number, 2);
+		if (i == 0 || number>largest) largest = number;
+		if (i == 0 || number<smallest) smallest = number;
+	}
+	double average = sum/length;
+	double standardDeviation = sqrt((sumSquared-2*sum*average+pow(average, 2)*length)/length);
+	cout << "The sum is: " << sum << endl;
+	cout << "The mean is: " << average << endl;
+  cout << "The standard deviation is: " << standardDeviation << endl;
+	cout << "The smallest is: " << smallest << endl;
+	cout << "The largest is: " << largest << endl;
+	return 0;
+}

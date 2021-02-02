@@ -1,0 +1,60 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <cstddef>
+#include <fstream>
+using namespace std;
+
+void bubbleSort(vector<string> &v, char order='a') {
+	size_t nElem = v.size();
+	bool swapping;
+	string temp;
+	do {
+		swapping = false;
+		for (size_t i=0; i<nElem-1; i++)
+			if ((v.at(i)>v.at(i+1) && order == 'a') || (v.at(i)<v.at(i+1) && order == 'd')) {
+				swapping = true;
+				temp = v.at(i);
+				v.at(i) = v.at(i+1);
+				v.at(i+1) = temp;
+			}
+		nElem--;
+	} while (swapping);
+}
+
+string readFile() {
+  string filename;
+  cout << "What file do you want to open ? ";
+  cin >> filename;
+  cin.ignore(100, '\n');
+  return filename;
+}
+
+vector<string> readNames(ifstream &f_in) {
+  vector<string> names;
+  string line;
+  while (getline(f_in, line)) {
+    names.push_back(line);
+  }
+  return names;
+}
+
+void writeNames(vector<string> v, ofstream &f_out) {
+  bubbleSort(v);
+  for (unsigned i = 0; i < v.size(); i++)
+    f_out << v.at(i) << endl;
+}
+
+int main() {
+  string filename = readFile();
+	ifstream f_in(filename+".txt");
+  ofstream f_out(filename+"_sorted.txt");
+  if (!f_in.is_open()) {
+    cerr << "File not found!\n";
+    exit(1);
+  }
+  writeNames(readNames(f_in), f_out);
+  f_in.close();
+  f_out.close();
+	return 0;
+}

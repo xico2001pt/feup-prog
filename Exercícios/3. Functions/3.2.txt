@@ -1,0 +1,20 @@
+#include<iostream>
+#include<cmath>
+using namespace std;
+
+bool isPrime(unsigned number) {
+	for (int i = 2; i<=sqrt(number); i++) {
+		if (number%i == 0) return false;
+	}
+	return true;
+}
+
+int main() {
+    // User Input
+		unsigned num;
+    cout << "Insert a number: "; cin >> num;
+
+    // Output
+		cout << "isPrime says " << isPrime(num);
+    return 0;
+}

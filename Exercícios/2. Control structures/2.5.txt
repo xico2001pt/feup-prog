@@ -1,0 +1,22 @@
+#include<iostream>
+#include<cmath>
+#include<iomanip>
+using namespace std;
+
+int main() {
+	cout << "Considere a equação ax^2+bx+c=0\n";
+	float a, b, c; // User Input
+	cout << "Introduza o valor de a: "; cin >> a;
+	cout << "Introduza o valor de b: "; cin >> b;
+	cout << "Introduza o valor de c: "; cin >> c;
+	// Descobrir numero de soluções
+	double delta = pow(b,2)-4*a*c;
+	cout << fixed << setprecision(3);
+	if (delta > 0)
+		cout << "A equação tem 2 raízes reais diferentes: " << (-b+sqrt(delta))/(2*a) << " e " << (-b-sqrt(delta))/(2*a);
+	else if (delta == 0)
+		cout << "A equação tem 2 raízes reais iguais: " << -b/(2*a);
+	else
+		cout << "A equação tem 2 raízes complexas conjugadas: " << -b/(2*a) << " + " << sqrt(-delta)/(2*a) << "i e " << -b/(2*a) << " - " << sqrt(-delta)/(2*a) << "i";
+	return 0;
+}

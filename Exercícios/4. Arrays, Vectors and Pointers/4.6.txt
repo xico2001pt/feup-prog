@@ -1,0 +1,72 @@
+#include <iostream>
+#include <vector>
+#include <cstddef>
+using namespace std;
+
+void bubbleSort(vector<int> &v, char order='a') {
+	size_t nElem = v.size();
+	bool swapping;
+	int temp;
+	do {
+		swapping = false;
+		for (size_t i=0; i<nElem-1; i++)
+			if ((v.at(i)>v.at(i+1) && order == 'a') || (v.at(i)<v.at(i+1) && order == 'd')) {
+				swapping = true;
+				temp = v.at(i);
+				v.at(i) = v.at(i+1);
+				v.at(i+1) = temp;
+			}
+		nElem--;
+	} while (swapping);
+}
+
+void removeDuplicates(vector<int> &v) {
+	size_t index = 0, size = v.size();
+	int value;
+	while (index < size) {
+		value = v.at(index);
+		for (size_t i=index+1; i<size; i++) {
+			if (v.at(i) == value) {
+				for (size_t k=i; k<size-1; k++) {
+					v.at(k) = v.at(k+1);
+				}
+				v.resize(--size);
+				i--;
+			}
+		}
+		index++;
+	}
+}
+
+void vectorUnion(const vector<int> &v1, const vector<int> &v2, vector<int> &v3) {
+	for (size_t i=0; i<v1.size(); i++)
+		v3.push_back(v1.at(i));
+	for (size_t j=0; j<v2.size(); j++)
+		v3.push_back(v2.at(j));
+	removeDuplicates(v3);
+	if (v3.size() > 0) bubbleSort(v3);
+}
+
+void vectorIntsersection(const vector<int> &v1, const vector<int> &v2, vector<int> &v3) {
+	for (size_t i=0; i<v1.size(); i++)
+		for (size_t j=0; j<v2.size(); j++)
+			if (v1.at(i) == v2.at(j))
+				v3.push_back(v1.at(i));
+	removeDuplicates(v3);
+	if (v3.size() > 0) bubbleSort(v3);
+}
+
+int main() {
+	vector<int> v1{-1,0,1,2,3,1,4,5};
+	vector<int> v2{6,10,3,7,7,1,0};
+	vector<int> vU{};
+	vector<int> vI{};
+	vectorUnion(v1, v2, vU);
+	for (size_t i=0; i<vU.size(); i++)
+		cout << vU.at(i) << " ";
+	cout << endl;
+	vectorIntsersection(v1, v2, vI);
+	for (size_t i=0; i<vI.size(); i++)
+		cout << vI.at(i) << " ";
+	return 0;
+}

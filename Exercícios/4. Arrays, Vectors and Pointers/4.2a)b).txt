@@ -1,0 +1,52 @@
+#include <iostream>
+#include <vector>
+#include <cstddef>
+using namespace std;
+
+void readVector(vector<int> &v) {
+	int answer;
+	size_t i = 0;
+	while (true) {
+		cout << i << " ? "; cin >> answer;
+		if (cin.fail() || cin.peek() != '\n') {
+			if (cin.eof())
+				break;
+			cin.clear();
+			cin.ignore(1000, '\n');
+		}
+		else {
+			v.push_back(answer);
+			i++;
+		}
+	}
+}
+
+size_t findValueInVector(const vector<int> &v, int value, size_t pos1=0, size_t pos2=0) {
+	if (!pos2)
+		pos2 = v.size();
+	for (size_t i = pos1; i <= pos2; i++) {
+		if (v.at(i) == value)
+			return i;
+	}
+	return -1;
+}
+
+void findMultValuesInVector(const vector<int> &v, int value, size_t pos1, size_t pos2, vector<size_t> &index) {
+	for (size_t i = pos1; i <= pos2; i++) {
+		if (v.at(i) == value) {
+			index.push_back(i);
+		}
+	}
+}
+
+int main() {
+	vector<int> v; vector<size_t> index;
+	readVector(v);
+	cout << findValueInVector(v, 5) << endl;
+	findMultValuesInVector(v, 5, 0, 6, index);
+	cout << "[";
+	for (int i=0; i<index.size(); i++)
+		cout << index.at(i) << ", ";
+	cout << "]" << endl;
+	return 0;
+}

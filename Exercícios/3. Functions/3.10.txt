@@ -1,0 +1,25 @@
+#include<iostream>
+using namespace std;
+
+unsigned long long factorial_ite(unsigned int n) {
+	if (n > 20) {
+		cout << "This number is too big! ";
+		return 0;
+	}
+	else {
+		unsigned long long result = 1;
+		for (int i=n; i>1; i--) {
+			result *= i;
+		}
+		return result;
+	}
+}
+
+unsigned long long factorial_rec(unsigned int n) {
+	if (n > 20) {
+		cout << "This number is too big! ";
+		return 0;
+	}
+	if (n == 0 || n == 1) return 1;
+	else return n*factorial_rec(n-1);
+}

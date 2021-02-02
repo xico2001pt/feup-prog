@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <cstdlib>
+#include <math.h>
+
+typedef struct {
+  double x;
+  double y;
+} Point;
+
+typedef struct {
+  Point *arr;
+} Polygon;
+
+void readPoints(Polygon *pol, unsigned *numPoints) {
+  Point point;
+  printf("How many points does the polygon has ? "); // Ask number of points
+  scanf("%u", numPoints); // Input number of point
+  pol->arr = (Point *) malloc(*numPoints * sizeof(Point)); // Allocate memory for the points
+  // Loop trough the array to store the points
+  for (unsigned i = 0; i < *numPoints; i++) {
+    printf("Point %u ? ", i + 1);
+    scanf("%lf %lf", &(point.x), &(point.y));
+    (pol->arr)[i] = point;
+  }
+}
+
+double polygonArea(const Polygon pol, const unsigned numPoints) {
+  double result = 0;
+  double x1, y1, x2, y2;
+  for (unsigned i = 0; i < numPoints; i++) {
+    x1 = (pol.arr)[i].x;
+    y1 = (pol.arr)[i].y;
+    x2 = (pol.arr)[(i+1)%numPoints].x;
+    y2 = (pol.arr)[(i+1)%numPoints].y;
+    result += (x1*y2-y1*x2);
+  }
+  result = abs(result / 2);
+  return result;
+}
+
+int main(void) {
+  Polygon pol; unsigned numPoints;
+  readPoints(&pol, &numPoints);
+  printf("The area of the polygon is: %lf", polygonArea(pol, numPoints));
+  free(pol.arr);
+  return 0;
+}

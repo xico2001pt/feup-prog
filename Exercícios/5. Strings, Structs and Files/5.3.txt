@@ -1,0 +1,35 @@
+#include <iostream>
+#include <cstring>
+#include <cstdlib>
+#include <cstddef>
+using namespace std;
+
+int compareAsc(const void* a, const void* b) {
+	const char *pa = *(const char**)a;
+  const char *pb = *(const char**)b;
+  return strcmp(pa,pb);
+}
+
+void readNames(char **v, const size_t size) {
+  for (size_t i=0; i<size; i++) {
+    cout << "Name " << i+1 << " ? ";
+    cin.getline(v[i], 100);
+  }
+}
+
+int main() {
+  size_t size;
+  char **v;
+  cout << "How many names do you want to store ? ";
+  cin >> size;
+  cin.ignore(10000, '\n');
+  v = (char **) malloc(size*sizeof(char*));
+  for(int i = 0; i < size; i++)
+    v[i] = (char *) malloc(100 * sizeof(char));
+  readNames(v, size);
+  qsort(v, size, sizeof(char*), compareAsc);
+	for (int i=0;i<size; i++)
+		cout << v[i] << ", ";
+  free(v);
+	return 0;
+}

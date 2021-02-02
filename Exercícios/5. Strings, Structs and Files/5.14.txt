@@ -1,0 +1,158 @@
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <fstream>
+#include <vector>
+#include <iomanip>
+using namespace std;
+
+typedef struct {
+    string name;
+    int phoneNumber;
+} Person;
+/*----------- EXERCICIO 5.5 ------------*/
+ string remEndBegSpaces(const string &s) {
+  const size_t strBeg = s.find_first_not_of(" ");
+  if (strBeg == string::npos)
+    return "";
+  const size_t strEnd = s.find_last_not_of(" ");
+  return s.substr(strBeg, strEnd - strBeg + 1);
+}
+
+string remMultipleSpaces(const string &s) {
+  size_t pos;
+  string s_cpy = s;
+  while((pos = s_cpy.find("  ")) != string::npos) {
+    s_cpy.replace(pos, 2, " ");
+  }
+  return s_cpy;
+}
+/*--------------------------------------*/
+
+int readInt() {
+    int integer;
+	bool validOperation = false;
+	do {
+		cin >> integer;
+		if (!cin.fail() && cin.peek() == '\n') {
+			validOperation = true;
+		}
+		else {
+			cout << "Invalid input!" << endl;
+			cin.clear();
+		}
+		cin.ignore(100000, '\n'); // Clean buffer
+	} while (!validOperation);
+    return integer;
+}
+
+int personPosition(string elem, const vector<Person> v) {
+	for (unsigned i = 0; i < v.size(); i++)
+		if (v.at(i).name == elem)
+			return i;
+	return -1;
+}
+
+void removePerson(vector<Person> &v, unsigned &emptyRecords) {
+    string name;
+    unsigned idx;
+    cout << "Which name do you want to remove ?" << endl;
+    getline(cin, name);
+    idx = personPosition(name, v);
+    if (idx != -1) {
+        emptyRecords++;
+        v.at(idx).name = "";
+        v.at(idx).phoneNumber = 0;
+        cout << "Person removed!" << endl;
+    }
+    else
+        cout << "Name not found!" << endl;
+    cout << endl;
+}
+
+void addPerson(vector<Person> &v, unsigned &emptyRecords) {
+    string name;
+    int phoneNumber;
+    cout << "Which name do you want to add ?" << endl;
+    getline(cin, name);
+    cout << "Which phone number do you want to add ?" << endl;
+    phoneNumber = readInt();
+    if (emptyRecords == 0)
+        v.push_back({name, phoneNumber});
+    else {
+        unsigned idx;
+        idx = personPosition("", v);
+        v.at(idx) = {name, phoneNumber};
+        emptyRecords--;
+    }
+    cout << "Person added!\n" << endl;
+}
+
+void searchPhoneNumber(const vector<Person> v) {
+    int idx;
+    string name;
+    cout << "Which name do you want to search ?" << endl;
+    getline(cin, name);
+    idx = personPosition(name, v);
+    if (idx != -1)
+        cout << name << "'s Phone Number is: "<< v.at(idx).phoneNumber << endl;
+    else
+        cout << "Name not found!" << endl;
+    cout << endl;
+}
+
+Person readPerson(string line) {
+  stringstream ss;
+  string temp;
+  string name = "";
+  int phoneNumber;
+  bool isName = true;
+  ss << line;
+  while (!ss.eof()) {
+    ss >> temp;
+    if (temp == "|") isName = false;
+    else {
+        if (isName) name += temp + " ";
+        else phoneNumber = stoi(temp);
+    }
+    temp = "";
+  }
+
+  return {remMultipleSpaces(remEndBegSpaces(name)), phoneNumber};
+}
+
+int main() {
+    vector<Person> phoneList;
+    Person person;
+    unsigned emptyRecords = 0;
+    // Import phone list to vector
+    ifstream f_in("phone_list.txt");
+    string line;
+    while (getline(f_in, line)) {
+        person = readPerson(line);
+        if (person.name == "") emptyRecords++;
+        phoneList.push_back(readPerson(line));
+    }
+    // Display menu
+    int choice;
+    do {
+        cout << "Menu:\n\n0. Add person\n1. Remove Person\n2. Modify the phone number associated with a person\n3. Search for the phone number of a given person\n\n-1. EXIT" << endl;
+        choice = readInt();
+        if (choice == -1)
+         cout << "Goodbye!\n" << endl;
+        else if (choice == 0)
+            addPerson(phoneList, emptyRecords);
+        else if (choice == 1)
+            removePerson(phoneList, emptyRecords);
+        else if (choice == 3)
+            searchPhoneNumber(phoneList);
+        else
+            cout << "Invalid command\n" << endl;
+    } while(choice != -1);
+    f_in.close();
+    // Write phone list on file
+    ofstream f_out("phone_list.txt");
+    for (int i=0; i< phoneList.size(); i++)
+        f_out << left << setw(30) << phoneList.at(i).name << " | " << phoneList.at(i).phoneNumber << endl;
+    return 0;
+}

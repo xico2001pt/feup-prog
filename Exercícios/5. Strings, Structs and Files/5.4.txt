@@ -1,0 +1,9 @@
+#include <string>
+using namespace std;
+
+bool sequenceSearch(const string &s, int nc, char c) {
+  string target = "";
+  for (int i=0; i<nc; i++)
+    target += c;
+  return (s.find(target) != string::npos);
+}

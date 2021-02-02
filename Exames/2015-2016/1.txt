@@ -1,0 +1,61 @@
+bool Purse::removeAmount(float amount, vector<int> coins) {
+}
+
+vector<float> possibleCoins = {2, 1, 0.5, 0.2, 0.1};
+/* Deve ser colocado no scope global do programa. O static significa que para todos os objetos da classe Purse, existirá apenas instância daquele atributo. */
+
+Purse::Purse(string owner) : owner(owner), amount(0) {
+}
+
+void Purse::addCoins(vector<float> coins) {
+	for (float coin : coins) {
+		coins.push_back(coin);
+		amount += coin;
+	}
+}
+
+bool Purse::removeCoin(float coin) {
+	for (vector<float>::iterator it = coins.begin(); it != coins.end(); it++) {
+		if (*it == coin) {
+			amount -= coin;
+			coins.erase(it);
+			return true;
+		}
+	}
+	return false;
+
+bool operator==(const Purse &right) {
+	if (this->tellAmount() != right.tellAmount())
+		return false;
+	vector<float> c1 = this->tellCoins(), c2 = right.tellCoins();
+	sort(c1.begin(), c1.end());
+	sort(c2.begin(), c2.end());
+	if (c1 != c2)
+		return false;
+	return true;
+}
+
+int main() {
+	vector<float> anaCoins = {2,1,0.5,0.2,0.2,0.1};
+	Purse purse1("Ana");
+	purse1.addCoins(anaCoins);
+	purse1.show();
+	
+	Purse purse2();
+	for (unsigned int i = 0; i < anaCoins.size(); i++) {
+		float coin = Purse::possibleCoins.at(rand()%Purse::possibleCoins.size());
+		purse2.addCoin(coin);
+	}
+	purse2.show();
+	cout << purse1 == purse2;
+}
+
+/* Escolheria um multiset
+porque é uma estrutura de dados adequada para representar conjuntos de valores
+do mesmo tipo e porque podem existir moedas repetidas */
+
+multiset<float> coins;
+
+void Purse::addCoin(float coin) {
+	coins.insert(coin);
+}
